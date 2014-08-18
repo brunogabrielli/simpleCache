@@ -33,7 +33,7 @@ public class Cache<T, K> implements Map<T, K>{
 	public boolean containsKey(Object chave) {
 
 		// Se possui a chave e ela está no prazo de validade
-		return map.containsKey(chave) && ((System.currentTimeMillis() - map.get(chave).getTimeout()) < timeout);		
+		return map.containsKey(chave) && ((System.currentTimeMillis() - map.get(chave).getTime()) < timeout);		
 		
 	}
 
@@ -45,7 +45,7 @@ public class Cache<T, K> implements Map<T, K>{
 			Item<K> elemento = map.get(chave);
 			
 			// Se o elemento esta no prazo de validade
-			if ((System.currentTimeMillis() - elemento.getTimeout()) < timeout) {
+			if ((System.currentTimeMillis() - elemento.getTime()) < timeout) {
 				retorno = elemento.getValue();
 			}
 			else {
@@ -103,5 +103,17 @@ public class Cache<T, K> implements Map<T, K>{
 
 	public Set<java.util.Map.Entry<T, K>> entrySet() {
 		throw new UnsupportedOperationException("");
+	}
+	
+	public void clearTimeout() {
+		long now = System.currentTimeMillis();
+		
+		for (T key: map.keySet()) {
+			Item<K> i = map.get(key);
+			
+			if ((now - i.getTime()) >= timeout) {
+				map.remove(key);
+			}
+		}
 	}
 }

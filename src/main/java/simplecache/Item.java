@@ -3,18 +3,18 @@ package simplecache;
 public class Item<K> {
 
 	private K value;
-	private long timeout;
+	private long time;
 	
-	public Item(K value, long timeout) {
+	public Item(K value, long time) {
 		super();
 		this.value = value;
-		this.timeout = timeout;
+		this.time = time;
 	}
-	public long getTimeout() {
-		return timeout;
+	public long getTime() {
+		return time;
 	}
-	public void setTimeout(long timeout) {
-		this.timeout = timeout;
+	public void setTime(long time) {
+		this.time = time;
 	}
 	public K getValue() {
 		return value;
