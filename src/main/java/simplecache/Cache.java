@@ -57,6 +57,9 @@ public class Cache<T, K> implements Map<T, K>{
 	}
 
 	public K put(T chave, K valor) {
+		if (containsKey(chave))
+			remove(chave);
+		
 		Item<K> elemento = new Item<K>(valor, System.currentTimeMillis());
 		
 		map.put(chave, elemento);
